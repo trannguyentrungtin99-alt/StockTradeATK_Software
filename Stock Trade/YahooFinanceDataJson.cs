@@ -99,7 +99,7 @@ namespace Stock_Trade
             public List<long> timestamp { get; set; }
             public Indicators indicators { get; set; }
         }
-
+        
         public class Root
         {
             public Chart chart { get; set; }

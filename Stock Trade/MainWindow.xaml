@@ -8,7 +8,7 @@
         xmlns:xctk="http://xceed.com"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="ATK Trading" Height="550" Width="900"
+        Title="StockTradeATK_Software" Height="550" Width="900"
         Style="{StaticResource MaterialDesignWindow}"
         Background="#000000">
     <Grid>
@@ -101,10 +101,32 @@
             </Grid>
         </Border>
 
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" Zoom="Xy"
-                            Grid.Row="1" Grid.Column="1" Margin="5,5,5,5">
-        </lvc:CartesianChart>
+        <Border Grid.Row="1" Grid.Column="1">
+            <lvc:CartesianChart Series="{Binding SeriesCollection}" Zoom="Xy"
+                    Grid.Row="1" Grid.Column="1" Margin="5,5,5,5">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis x:Name="DateTimeX"
+                              Foreground="#C8ABDE"
+                              FontSize="12"
+                              Labels="{Binding Labels}">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator StrokeThickness="0.3" Stroke="#C8ABDE"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
 
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis x:Name="ValueY" Position="RightTop" 
+                              Foreground="#C8ABDE" 
+                              LabelFormatter="{Binding YFormatter}">
+                        <lvc:Axis.Separator>
+                            <lvc:Separator StrokeThickness="0.3" Stroke="#C8ABDE"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Border>
+        
         <Border Grid.Column="2" Grid.Row="1">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
