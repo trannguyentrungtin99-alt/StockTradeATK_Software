@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Grid.Column="0" 
@@ -30,10 +31,10 @@
                 Grid.ColumnSpan="4" Background="#101010">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="379*"/>
-                    <ColumnDefinition Width="171*"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
 
@@ -42,9 +43,14 @@
                         <TextBox x:Name="txtTicker" 
                                  Foreground="White"
                                  Margin="10,0,0,0"
-                                 FontSize="20"
+                                 FontSize="16"
                                  VerticalAlignment="Center" 
-                                 Text="VCB.VN" KeyDown="txtTicker_KeyDown"/>
+                                 KeyDown="txtTicker_KeyDown"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 Text="MSFT"
+                                 materialDesign:HintAssist.Hint="Search Stock Code">
+
+                        </TextBox>
                     </Grid>
                 </Border>
 
@@ -52,7 +58,7 @@
                     <Button Content="Charts" FontSize="20" Style="{StaticResource MaterialDesignFlatButton}" Foreground="White"/>
                 </Border>
 
-                <Border Grid.Column="4" Background="#101010">
+                <Border Grid.Column="5" Background="#101010">
                     <Grid>
                         <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="White">
                             <materialDesign:PackIcon Kind="Gear"></materialDesign:PackIcon>
@@ -102,31 +108,37 @@
         </Border>
 
         <Border Grid.Row="1" Grid.Column="1">
-            <lvc:CartesianChart Series="{Binding SeriesCollection}" Zoom="Xy"
-                    Grid.Row="1" Grid.Column="1" Margin="5,5,5,5">
+            <lvc:CartesianChart Series="{Binding SeriesCollection}" Zoom="Xy" Margin="5,5,5,5">
                 <lvc:CartesianChart.AxisX>
                     <lvc:Axis x:Name="DateTimeX"
-                              Foreground="#C8ABDE"
+                              Foreground="White"
                               FontSize="12"
                               Labels="{Binding Labels}">
                         <lvc:Axis.Separator>
-                            <lvc:Separator StrokeThickness="0.3" Stroke="#C8ABDE"/>
+                            <lvc:Separator StrokeThickness="0.1" Stroke="White"/>
                         </lvc:Axis.Separator>
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisX>
 
                 <lvc:CartesianChart.AxisY>
                     <lvc:Axis x:Name="ValueY" Position="RightTop" 
-                              Foreground="#C8ABDE" 
+                              Foreground="White" 
                               LabelFormatter="{Binding YFormatter}">
                         <lvc:Axis.Separator>
-                            <lvc:Separator StrokeThickness="0.3" Stroke="#C8ABDE"/>
+                            <lvc:Separator StrokeThickness="0.1" Stroke="White"/>
                         </lvc:Axis.Separator>
                     </lvc:Axis>
                 </lvc:CartesianChart.AxisY>
+
+                <lvc:CartesianChart.Resources>
+                    <Style TargetType="lvc:CandleSeries" x:Key="BullishCandleStyle">
+                        <Setter Property="IncreaseBrush" Value="#22DD1E"/>
+                        <Setter Property="DecreaseBrush" Value="#DD1E52"/>
+                    </Style>
+                </lvc:CartesianChart.Resources>
             </lvc:CartesianChart>
         </Border>
-        
+
         <Border Grid.Column="2" Grid.Row="1">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -143,7 +155,7 @@
 
                 <Border Grid.Row="0" Background="#222024" Margin="6" CornerRadius="10">
                     <StackPanel Margin="10,0,0,0">
-                        <Label Content="VCB.VN"
+                        <Label Content="No Data"
                                x:Name="txtName"
                                Foreground="White"
                                FontSize="25"/>
@@ -151,7 +163,7 @@
                         <Label Content="Mode: Finance"
                                Foreground="#C8ABDE"
                                FontSize="9"/>
-                        <Label Content="Time Mode: 1H"
+                        <Label Content="Time Mode: 10m"
                                Foreground="#C8ABDE"
                                FontSize="9"/>
                     </StackPanel>
@@ -510,29 +522,42 @@
                 </LinearGradientBrush>
             </Border.Background>
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="16*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="50"/>
-                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                
-                <Border Grid.Row="0">
+
+                <Border Grid.Row="0" Grid.ColumnSpan="2">
                     <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="White">
                         <materialDesign:PackIcon Kind="Table"></materialDesign:PackIcon>
                     </Button>
                 </Border>
 
-                <Border Grid.Row="1">
+                <Border Grid.Row="1" Grid.ColumnSpan="2">
                     <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="White">
                         <materialDesign:PackIcon Kind="User"></materialDesign:PackIcon>
                     </Button>
                 </Border>
 
-                <Border Grid.Row="2">
+                <Border Grid.Row="2" Grid.ColumnSpan="2">
                     <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="White">
                         <materialDesign:PackIcon Kind="Clock"></materialDesign:PackIcon>
                     </Button>
+                </Border>
+
+                <Border Grid.Row="3" Grid.ColumnSpan="2">
+                    <Grid>
+                        <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="White">
+                            <materialDesign:PackIcon Kind="Code"/>
+                        </Button>
+                    </Grid>
                 </Border>
             </Grid>
         </Border>
@@ -565,7 +590,7 @@
                                     Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left"></Button>
                             <Button x:Name="btn_5m" Content="5m" Foreground="White" FontSize="15"
                                     Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left"></Button>
-                            <Button x:Name="btn_15m" Content="15m" Foreground="White" FontSize="15"
+                            <Button x:Name="btn_10m" Content="10m" Foreground="White" FontSize="15"
                                     Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left"></Button>
                             <Button x:Name="btn_30m" Content="30m" Foreground="White" FontSize="15"
                                     Style="{StaticResource MaterialDesignFlatButton}" HorizontalAlignment="Left"></Button>
